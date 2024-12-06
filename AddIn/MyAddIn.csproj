@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<UseWPF>true</UseWPF>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- We don't need the extra 'ref' directory and reference assemblies for the Excel add-in -->
+		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+
+		<!-- We need all dependencies to be copied to the output directory, as-if we are an 'application' and not a 'library'. This property also sets the CopyLockFileAssemblies property to true. -->
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+
+		<ExcelAddInInclude>
+			MyControls.dll
+		</ExcelAddInInclude>
+
+		<!-- Prevents all static functions from automatically becoming ExcelFunctions; requires [ExcelFunction] annotation -->
+		<ExcelAddInExplicitExports>true</ExcelAddInExplicitExports>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Remove="System.Windows.Forms" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ExcelDna.AddIn" Version="1.8.0" />
+		<PackageReference Include="ExcelDna.Integration" Version="1.8.0" />
+		<PackageReference Include="ExcelDna.IntelliSense" Version="1.8.0" />
+		<PackageReference Include="ExcelDna.XmlSchemas" Version="1.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\MyControls\MyControls.csproj" />
+	</ItemGroup>
+</Project>
